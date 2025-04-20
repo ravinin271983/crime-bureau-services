@@ -1,6 +1,7 @@
 package org.services.crime.services.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.services.crime.entity.Victim;
 import org.services.crime.repository.VictimRepository;
@@ -25,12 +26,13 @@ public class VictimServicesImpl implements VictimServices {
 
 	@Override
 	public List<Victim> findAll() {
-		return victimRepo.findAll();
+		return victimRepo.findAll().stream().filter(v -> v.getCaseObj() == null).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Victim> findAllByCaseId(Long caseId) {
-		return victimRepo.findAllByCaseId(caseId);
+//		return victimRepo.findAll().stream().filter(obj -> obj.getCaseObj().getId() == caseId).collect(Collectors.toList());
+		return null;
 	}
 
 }

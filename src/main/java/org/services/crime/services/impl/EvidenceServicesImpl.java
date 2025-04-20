@@ -1,6 +1,7 @@
 package org.services.crime.services.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.services.crime.entity.Evidence;
 import org.services.crime.repository.EvidenceRepository;
@@ -25,12 +26,13 @@ public class EvidenceServicesImpl implements EvidenceServices {
 
 	@Override
 	public List<Evidence> findAll() {
-		return evidenceRepo.findAll();
+		return evidenceRepo.findAll().stream().filter(e -> e.getCaseObj() == null).collect(Collectors.toList());
 	}
 
 	@Override
 	public List<Evidence> findAllByCaseId(Long caseId) {
-		return evidenceRepo.findAllByCaseId(caseId);
+//		return evidenceRepo.findAll().stream().filter(evidence -> evidence.getCaseObj().getId() == caseId).collect(Collectors.toList());
+		return null;
 	}
 
 }

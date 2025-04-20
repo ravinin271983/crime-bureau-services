@@ -1,6 +1,7 @@
 package org.services.crime.services.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.services.crime.entity.LegalAction;
 import org.services.crime.repository.LegalActionRepository;
@@ -30,6 +31,7 @@ public class LegalActionServicesImpl implements LegalActionServices {
 
 	@Override
 	public List<LegalAction> findAllByCaseId(Long caseId) {
-		return legalActionRepo.findAllByCaseId(caseId);
+//		return legalActionRepo.findAll().stream().filter(obj -> obj.getCaseObj().getId() == caseId).collect(Collectors.toList());
+		return null;
 	}
 }

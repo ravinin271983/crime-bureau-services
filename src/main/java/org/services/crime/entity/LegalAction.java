@@ -16,9 +16,6 @@ public class LegalAction {
 	@GeneratedValue(strategy = GenerationType.AUTO) 
 	private Long id;
 
-	@Column(name="case_id")
-	private Long caseId;
-
 	@Column(name="action_id")
 	private String actionId;
 	

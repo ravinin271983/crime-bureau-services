@@ -17,9 +17,6 @@ public class InvestigatingOfficer {
 	@Column(name="name")
 	private String name;
 
-	@Column(name="officer_id")
-	private String officerId;
-
 	@Column(name="contact")
 	private String contact;
 

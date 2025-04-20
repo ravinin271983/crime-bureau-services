@@ -1,10 +1,14 @@
 package org.services.crime.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 @Data
@@ -13,12 +17,6 @@ public class Suspect {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) 
 	private Long id;
-
-	@Column(name="case_id")
-	private Long caseId;
-
-	@Column(name="suspect_id")
-	private String suspectId;
 
 	@Column(name="name")
 	private String name;
@@ -34,4 +32,9 @@ public class Suspect {
 
 	@Column(name="crime_history")
 	private String crimeHistory;
+	
+	@ManyToOne
+	@JoinColumn(name = "case_id")
+	@JsonIgnore
+	private Case caseObj;
 }
