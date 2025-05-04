@@ -2,7 +2,7 @@ package org.services.crime.controller;
 
 import java.util.List;
 
-import org.services.crime.entity.Evidence;
+import org.services.crime.dto.EvidenceDto;
 import org.services.crime.services.EvidenceServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,29 +22,36 @@ public class EvidenceController {
 
 	@GetMapping(value = "/evidence", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Evidence> findAll() {
+	public List<EvidenceDto> findAll() {
 		return evidenceServices.findAll();
 	}
 
 	@GetMapping(value = "/evidence/{caseId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Evidence> findAll(@PathVariable Long caseId) {
+	public List<EvidenceDto> findAll(@PathVariable Long caseId) {
 		return evidenceServices.findAllByCaseId(caseId);
 	}
 	
 	@PostMapping(value = "/evidence", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Evidence save(@RequestBody Evidence evidence) {
+	public EvidenceDto save(@RequestBody EvidenceDto evidence) {
 		return evidenceServices.save(evidence);
 	}
 	
 	@PutMapping(value = "/evidence", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Evidence update(@RequestBody Evidence evidence) {
+	public EvidenceDto update(@RequestBody EvidenceDto evidence) {
 		return evidenceServices.save(evidence);
 	}
 
 	@DeleteMapping(value = "/evidence", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String delete(@RequestBody Evidence evidence) {
+	public String delete(@RequestBody EvidenceDto evidence) {
 		evidenceServices.delete(evidence);
 		return "Evidence deleted";
 	}
+	
+	@DeleteMapping(value = "/evidence/{id}")
+	public String delete(@PathVariable("id") Long id) {
+		evidenceServices.delete(id);
+		return "Evidence deleted";
+	}
+
 }

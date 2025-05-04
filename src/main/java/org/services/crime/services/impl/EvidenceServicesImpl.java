@@ -3,9 +3,11 @@ package org.services.crime.services.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.services.crime.dto.EvidenceDto;
 import org.services.crime.entity.Evidence;
 import org.services.crime.repository.EvidenceRepository;
 import org.services.crime.services.EvidenceServices;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,24 +17,60 @@ public class EvidenceServicesImpl implements EvidenceServices {
 	private EvidenceRepository evidenceRepo; 
 
 	@Override
-	public Evidence save(Evidence evidence) {
-		return evidenceRepo.save(evidence);
+	public EvidenceDto save(EvidenceDto evidenceDto) {
+		
+		if (evidenceDto.getId() != null) {
+			evidenceRepo.updateEvidenceDetails(evidenceDto.getId(), evidenceDto.getCaseId(), evidenceDto.getEvidenceType(), evidenceDto.getEvidenceDetails());
+		} else {
+			Evidence evidence = new Evidence();
+			BeanUtils.copyProperties(evidenceDto, evidence);
+
+			evidence = evidenceRepo.save(evidence);
+			BeanUtils.copyProperties(evidence, evidenceDto);
+			if (evidence.getCaseObj() != null) {
+				evidenceDto.setCaseId(evidence.getCaseObj().getId());
+			}
+		}
+
+		return evidenceDto;
 	}
 
 	@Override
-	public void delete(Evidence evidence) {
+	public void delete(EvidenceDto evidenceDto) {
+		Evidence evidence = new Evidence();
+		BeanUtils.copyProperties(evidenceDto, evidence);
 		evidenceRepo.delete(evidence);
 	}
 
 	@Override
-	public List<Evidence> findAll() {
-		return evidenceRepo.findAll().stream().filter(e -> e.getCaseObj() == null).collect(Collectors.toList());
+	public void delete(Long id) {
+		evidenceRepo.deleteById(id);
+	}
+	
+	@Override
+	public List<EvidenceDto> findAll() {
+		List<Evidence> evidences = evidenceRepo.findAll();
+		List<EvidenceDto> evidenceDtos = evidences.stream().map(evidence -> {
+			EvidenceDto evidenceDto = new EvidenceDto();
+			BeanUtils.copyProperties(evidence, evidenceDto);
+			if (evidence.getCaseObj() != null) {
+				evidenceDto.setCaseId(evidence.getCaseObj().getId());
+			}
+			return evidenceDto;
+		}).collect(Collectors.toList());
+		return evidenceDtos;
 	}
 
 	@Override
-	public List<Evidence> findAllByCaseId(Long caseId) {
-//		return evidenceRepo.findAll().stream().filter(evidence -> evidence.getCaseObj().getId() == caseId).collect(Collectors.toList());
-		return null;
+	public List<EvidenceDto> findAllByCaseId(Long caseId) {
+		List<Evidence> evidences = evidenceRepo.findAllByCaseId(caseId);
+		List<EvidenceDto> evidenceDtos = evidences.stream().map(evidence -> {
+			EvidenceDto evidenceDto = new EvidenceDto();
+			BeanUtils.copyProperties(evidence, evidenceDto);
+			evidenceDto.setCaseId(evidence.getCaseObj().getId());
+			return evidenceDto;
+		}).collect(Collectors.toList());
+		return evidenceDtos;
 	}
 
 }

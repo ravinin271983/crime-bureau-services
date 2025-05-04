@@ -2,11 +2,12 @@ package org.services.crime.services;
 
 import java.util.List;
 
-import org.services.crime.entity.LegalAction;
+import org.services.crime.dto.LegalActionDto;
 
 public interface LegalActionServices {
-	public LegalAction save(LegalAction action);
-	public void delete(LegalAction action);
-	public List<LegalAction> findAll();
-	public List<LegalAction> findAllByCaseId(Long caseId);
+	public LegalActionDto save(LegalActionDto action);
+	public void delete(LegalActionDto action);
+	public void delete(Long id);
+	public List<LegalActionDto> findAll();
+	public List<LegalActionDto> findAllByCaseId(Long caseId);
 }

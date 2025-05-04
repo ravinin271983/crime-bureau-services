@@ -2,7 +2,7 @@ package org.services.crime.controller;
 
 import java.util.List;
 
-import org.services.crime.entity.LegalAction;
+import org.services.crime.dto.LegalActionDto;
 import org.services.crime.services.LegalActionServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,29 +22,38 @@ public class LegalActionController {
 
 	@GetMapping(value = "/legalaction", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<LegalAction> findAll() {
+	public List<LegalActionDto> findAll() {
 		return legalActionServices.findAll();
 	}
 
 	@GetMapping(value = "/legalaction/{caseId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<LegalAction> findAll(@PathVariable Long caseId) {
+	public List<LegalActionDto> findAll(@PathVariable Long caseId) {
 		return legalActionServices.findAllByCaseId(caseId);
 	}
 	
 	@PostMapping(value = "/legalaction", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public LegalAction save(@RequestBody LegalAction legalAction) {
+	public LegalActionDto save(@RequestBody LegalActionDto legalAction) {
 		return legalActionServices.save(legalAction);
 	}
 	
 	@PutMapping(value = "/legalaction", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public LegalAction update(@RequestBody LegalAction legalAction) {
+	public LegalActionDto update(@RequestBody LegalActionDto legalAction) {
 		return legalActionServices.save(legalAction);
 	}
 
-	@DeleteMapping(value = "/legalaction", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String delete(@RequestBody LegalAction legalAction) {
+	@DeleteMapping(value = "/legalaction")
+	@ResponseBody
+	public String delete(@RequestBody LegalActionDto legalAction) {
 		legalActionServices.delete(legalAction);
 		return "Legal Action deleted";
 	}
+
+	@DeleteMapping(value = "/legalaction/{id}")
+	@ResponseBody
+	public String delete(@PathVariable("id") Long id) {
+		legalActionServices.delete(id);
+		return "Legal Action deleted";
+	}
+
 }

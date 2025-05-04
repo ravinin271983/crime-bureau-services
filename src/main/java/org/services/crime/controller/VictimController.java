@@ -2,7 +2,7 @@ package org.services.crime.controller;
 
 import java.util.List;
 
-import org.services.crime.entity.Victim;
+import org.services.crime.dto.VictimDto;
 import org.services.crime.services.VictimServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,29 +22,36 @@ public class VictimController {
 
 	@GetMapping(value = "/victim", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Victim> findAll() {
+	public List<VictimDto> findAll() {
 		return victimServices.findAll();
 	}
 
 	@GetMapping(value = "/victim/{caseId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<Victim> findAll(@PathVariable Long caseId) {
+	public List<VictimDto> findAll(@PathVariable Long caseId) {
 		return victimServices.findAllByCaseId(caseId);
 	}
 	
 	@PostMapping(value = "/victim", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Victim save(@RequestBody Victim suspect) {
+	public VictimDto save(@RequestBody VictimDto suspect) {
 		return victimServices.save(suspect);
 	}
 	
 	@PutMapping(value = "/victim", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Victim update(@RequestBody Victim suspect) {
+	public VictimDto update(@RequestBody VictimDto suspect) {
 		return victimServices.save(suspect);
 	}
 
 	@DeleteMapping(value = "/victim", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String delete(@RequestBody Victim suspect) {
+	public String delete(@RequestBody VictimDto suspect) {
 		victimServices.delete(suspect);
+		return "Victim deleted";
+	}
+
+	@DeleteMapping(value = "/victim/{id}")
+	@ResponseBody
+	public String delete(@PathVariable("id") Long id) {
+		victimServices.delete(id);
 		return "Victim deleted";
 	}
 

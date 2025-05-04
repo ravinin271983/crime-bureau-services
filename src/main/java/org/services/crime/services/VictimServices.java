@@ -2,11 +2,12 @@ package org.services.crime.services;
 
 import java.util.List;
 
-import org.services.crime.entity.Victim;
+import org.services.crime.dto.VictimDto;
 
 public interface VictimServices {
-	public Victim save(Victim victim);
-	public void delete(Victim victim);
-	public List<Victim> findAll();
-	public List<Victim> findAllByCaseId(Long caseId);
+	public VictimDto save(VictimDto victim);
+	public void delete(VictimDto victim);
+	public void delete(Long id);
+	public List<VictimDto> findAll();
+	public List<VictimDto> findAllByCaseId(Long caseId);
 }
