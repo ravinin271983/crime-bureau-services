@@ -24,9 +24,8 @@ Create Victim:<br/>
 curl --location 'http://localhost:8080/victim' \
 --header 'Content-Type: application/json' \
 --data '{
-	"victimId": "v-112", 
-    "name": "Victim 2", 
-    "contactNo": "2222222222",
+    "name": "Victim 1", 
+    "contactNo": "9999999999",
     "address": "Noida"
 }'<br/>
 List Victim: <br/>
@@ -46,7 +45,6 @@ Create Suspect:<br/>
 curl --location 'http://localhost:8080/suspect' \
 --header 'Content-Type: application/json' \
 --data '{
-	"suspectId": "s-111", 
     "name": "Abc", 
     "gender": "Male",
     "address": "Noida",
@@ -55,48 +53,17 @@ curl --location 'http://localhost:8080/suspect' \
 }'<br/>
 List Suspect: <br/>
 curl --location 'http://localhost:8080/suspect'<br/>
-
 Create Case:<br/>
 curl --location 'http://localhost:8080/cases' \
 --header 'Content-Type: application/json' \
 --data '{
-    "name": "Test Case",
     "description": "Test Case for testing purpose",
-    "investigatingOfficer": {
-        "id": 2,
-        "name": "Ravindra Verma",
-        "contact": "8800372326",
-        "role": "IT Dev",
-        "dept": "IT",
-        "caseObj": null
-    },
-    "suspects": [
-        {
-            "id": 1,
-            "name": "Abc",
-            "gender": "Male",
-            "address": "Noida",
-            "age": "37",
-            "crimeHistory": "Theft"
-        }
-    ],
-    "victims": [
-        {
-            "id": 1,
-            "name": "Victim 2",
-            "contactNo": "2222222222",
-            "address": "Noida"
-        }
-    ],
+    "investigatingOfficerId": 1,
+    "suspectIds": [1,2],
+    "victimIds": [1,2],
     "status": "OPEN",
     "dateReported": "2025-04-20T05:55:14.232Z",
-    "evidences": [
-        {
-            "id": 1,
-            "evidenceType": "Video",
-            "evidenceDetails": "Video showing crime."
-        }
-    ]
+    "evidenceIds": [1,2]
 }'<br/>
 List Case: <br/>
 curl --location 'http://localhost:8080/cases'<br/>
