@@ -44,12 +44,11 @@ public class CaseServicesImpl implements CaseServices {
 			evidenceRepo.removeCase(caseDto.getId());
 			suspectRepo.removeCase(caseDto.getId());
 			victimRepo.removeCase(caseDto.getId());
-
-			investigatingOfficerRepo.findById(caseDto.getInvestigatingOfficerId()).ifPresent(investigatingOfficer -> {
-				caseEntity.setInvestigatingOfficer(investigatingOfficer);
-			});
 		}
 
+		investigatingOfficerRepo.findById(caseDto.getInvestigatingOfficerId()).ifPresent(investigatingOfficer -> {
+			caseEntity.setInvestigatingOfficer(investigatingOfficer);
+		});
 		Case savedCase = caseRepo.save(caseEntity);
 
 		if (!CollectionUtils.isEmpty(caseDto.getEvidenceIds())) {
