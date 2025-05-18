@@ -18,11 +18,18 @@ public class InvestigatingOfficerServicesImpl implements InvestigatingOfficerSer
 
 	@Override
 	public InvestigatingOfficerDto save(InvestigatingOfficerDto investigatingOfficer) {
+		formatInput(investigatingOfficer);
 		InvestigatingOfficer officer = new InvestigatingOfficer();
 		BeanUtils.copyProperties(investigatingOfficer, officer);
 		officer = investigatingOfficerRepo.save(officer);
 		BeanUtils.copyProperties(officer, investigatingOfficer);
 		return investigatingOfficer;
+	}
+
+	private void formatInput(InvestigatingOfficerDto investigatingOfficer) {
+		if (investigatingOfficer.getId() == -1) {
+			investigatingOfficer.setId(null);
+		}
 	}
 
 	@Override

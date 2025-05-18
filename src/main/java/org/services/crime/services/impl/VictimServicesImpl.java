@@ -18,6 +18,7 @@ public class VictimServicesImpl implements VictimServices {
 
 	@Override
 	public VictimDto save(VictimDto victim) {
+		formatInput(victim);
 		Victim victimEntity = new Victim();
 		BeanUtils.copyProperties(victim, victimEntity);
 		victimEntity = victimRepo.save(victimEntity);
@@ -28,6 +29,12 @@ public class VictimServicesImpl implements VictimServices {
 		return victim;
 	}
 
+	private void formatInput(VictimDto victim) {
+		if (victim.getId() == -1) {
+			victim.setId(null);
+		}
+	}
+	
 	@Override
 	public void delete(VictimDto victim) {
 		Victim victimEntity = new Victim();

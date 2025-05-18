@@ -37,6 +37,8 @@ public class CaseServicesImpl implements CaseServices {
 
 	@Override
 	public CaseDto save(CaseDto caseDto) {
+		formatInput(caseDto);
+
 		Case caseEntity = new Case();
 		BeanUtils.copyProperties(caseDto, caseEntity);
 
@@ -73,6 +75,12 @@ public class CaseServicesImpl implements CaseServices {
 		return caseDto;
 	}
 
+	private void formatInput(CaseDto caseDto) {
+		if (caseDto.getId() == -1) {
+			caseDto.setId(null);
+		}
+	}
+	
 	@Override
 	public void delete(CaseDto caseDto) {
 		Case caseEntity = new Case();

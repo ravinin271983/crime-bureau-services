@@ -18,6 +18,7 @@ public class SuspectServicesImpl implements SuspectServices {
 
 	@Override
 	public SuspectDto save(SuspectDto suspect) {
+		formatInput(suspect);
 		Suspect suspectEntity = new Suspect();
 		BeanUtils.copyProperties(suspect, suspectEntity);
 		suspectEntity = suspectRepo.save(suspectEntity);
@@ -28,6 +29,12 @@ public class SuspectServicesImpl implements SuspectServices {
 		}
 		
 		return suspect;
+	}
+
+	private void formatInput(SuspectDto suspect) {
+		if (suspect.getId() == -1) {
+			suspect.setId(null);
+		}
 	}
 
 	@Override

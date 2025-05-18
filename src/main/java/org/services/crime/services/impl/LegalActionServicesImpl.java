@@ -22,6 +22,7 @@ public class LegalActionServicesImpl implements LegalActionServices {
 	
 	@Override
 	public LegalActionDto save(LegalActionDto action) {
+		formatInput(action);
 		LegalAction legalAction = new LegalAction();
 		BeanUtils.copyProperties(action, legalAction);
 		legalAction = legalActionRepo.save(legalAction);
@@ -40,6 +41,12 @@ public class LegalActionServicesImpl implements LegalActionServices {
 		return action;
 	}
 
+	private void formatInput(LegalActionDto action) {
+		if (action.getId() == -1) {
+			action.setId(null);
+		}
+	}
+	
 	@Override
 	public void delete(LegalActionDto action) {
 		LegalAction legalAction = new LegalAction();

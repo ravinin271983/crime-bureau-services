@@ -18,7 +18,8 @@ public class EvidenceServicesImpl implements EvidenceServices {
 
 	@Override
 	public EvidenceDto save(EvidenceDto evidenceDto) {
-		
+		formatInput(evidenceDto);
+
 		if (evidenceDto.getId() != null) {
 			evidenceRepo.updateEvidenceDetails(evidenceDto.getId(), evidenceDto.getCaseId(), evidenceDto.getEvidenceType(), evidenceDto.getEvidenceDetails());
 		} else {
@@ -35,6 +36,12 @@ public class EvidenceServicesImpl implements EvidenceServices {
 		return evidenceDto;
 	}
 
+	private void formatInput(EvidenceDto evidenceDto) {
+		if (evidenceDto.getId() == -1) {
+			evidenceDto.setId(null);
+		}
+	}
+	
 	@Override
 	public void delete(EvidenceDto evidenceDto) {
 		Evidence evidence = new Evidence();
