@@ -27,7 +27,7 @@ public class InvestigatingOfficerServicesImpl implements InvestigatingOfficerSer
 	}
 
 	private void formatInput(InvestigatingOfficerDto investigatingOfficer) {
-		if (investigatingOfficer.getId() == -1) {
+		if (investigatingOfficer.getId() != null && investigatingOfficer.getId() == -1) {
 			investigatingOfficer.setId(null);
 		}
 	}

@@ -42,7 +42,7 @@ public class LegalActionServicesImpl implements LegalActionServices {
 	}
 
 	private void formatInput(LegalActionDto action) {
-		if (action.getId() == -1) {
+		if (action.getId() != null && action.getId() == -1) {
 			action.setId(null);
 		}
 	}

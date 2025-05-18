@@ -37,7 +37,7 @@ public class EvidenceServicesImpl implements EvidenceServices {
 	}
 
 	private void formatInput(EvidenceDto evidenceDto) {
-		if (evidenceDto.getId() == -1) {
+		if (evidenceDto.getId() != null && evidenceDto.getId() == -1) {
 			evidenceDto.setId(null);
 		}
 	}

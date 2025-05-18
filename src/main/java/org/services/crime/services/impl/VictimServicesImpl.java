@@ -30,7 +30,7 @@ public class VictimServicesImpl implements VictimServices {
 	}
 
 	private void formatInput(VictimDto victim) {
-		if (victim.getId() == -1) {
+		if (victim.getId() != null && victim.getId() == -1) {
 			victim.setId(null);
 		}
 	}

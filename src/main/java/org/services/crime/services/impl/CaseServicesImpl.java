@@ -48,9 +48,12 @@ public class CaseServicesImpl implements CaseServices {
 			victimRepo.removeCase(caseDto.getId());
 		}
 
-		investigatingOfficerRepo.findById(caseDto.getInvestigatingOfficerId()).ifPresent(investigatingOfficer -> {
-			caseEntity.setInvestigatingOfficer(investigatingOfficer);
-		});
+		if (caseDto.getInvestigatingOfficerId() != null) {
+			investigatingOfficerRepo.findById(caseDto.getInvestigatingOfficerId()).ifPresent(investigatingOfficer -> {
+				caseEntity.setInvestigatingOfficer(investigatingOfficer);
+			});
+		}
+		
 		Case savedCase = caseRepo.save(caseEntity);
 
 		if (!CollectionUtils.isEmpty(caseDto.getEvidenceIds())) {
@@ -76,7 +79,7 @@ public class CaseServicesImpl implements CaseServices {
 	}
 
 	private void formatInput(CaseDto caseDto) {
-		if (caseDto.getId() == -1) {
+		if (caseDto.getId() != null && caseDto.getId() == -1) {
 			caseDto.setId(null);
 		}
 	}

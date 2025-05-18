@@ -32,7 +32,7 @@ public class SuspectServicesImpl implements SuspectServices {
 	}
 
 	private void formatInput(SuspectDto suspect) {
-		if (suspect.getId() == -1) {
+		if (suspect.getId() != null && suspect.getId() == -1) {
 			suspect.setId(null);
 		}
 	}
